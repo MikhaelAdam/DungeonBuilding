@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Placeable" load_steps=2 format=3 uid="uid://cq45eci82wr3o"]
+
+[ext_resource type="Script" path="res://object/resource/placeables.gd" id="1_eq1bg"]
+
+[resource]
+script = ExtResource("1_eq1bg")
+normal_plank = 0
+stairs = 0
+stairs_maxwidth = 0
+stairs_maxheight = 0
+enemy_plank = 0
+normal_plank_max = 0
+enemy_plank_max = 0

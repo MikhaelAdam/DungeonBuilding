@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmud2aiea4032"]
+
+[ext_resource type="Script" path="res://world/level.gd" id="1_e2e2x"]
+[ext_resource type="Texture2D" uid="uid://b3pae3g4qct4c" path="res://spritesheet/Brick.png" id="3_bv8bf"]
+[ext_resource type="Texture2D" uid="uid://cldq4ypoidq0i" path="res://spritesheet/plank.png" id="4_0ffvf"]
+[ext_resource type="Texture2D" uid="uid://dgqy07we7qsmd" path="res://spritesheet/enemyplank.png" id="5_i51x8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmwf"]
+texture = ExtResource("3_bv8bf")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(21.5, -32, 22, -20, 26, -20, 25.5, 32, 32, 32, 32, -32)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -32, -23.125, -18.875, -25.375, -19.125, -25.5, 32, -32, 32, -32, -32)
+
+[sub_resource type="TileSet" id="TileSet_d768j"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0gmwf")
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_e2e2x")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_d768j")
+format = 2
+layer_0/tile_data = PackedInt32Array(589824, 0, 0, 524288, 0, 0, 524289, 0, 0, 589825, 0, 0, 458753, 0, 0, 458752, 0, 0, 393216, 65536, 0, 393217, 65536, 0, 393218, 65536, 1, 458751, 0, 1, 589840, 65536, 0, 589841, 65536, 0, 589839, 0, 1, 655376, 0, 0, 655377, 0, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -90.0
+offset_right = 138.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NPlank" type="Button" parent="Control/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_0ffvf")
+
+[node name="PLabel" type="Label" parent="Control/HBoxContainer/NPlank"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0"
+horizontal_alignment = 1
+
+[node name="EPlank" type="Button" parent="Control/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_i51x8")
+
+[node name="ELabel" type="Label" parent="Control/HBoxContainer/EPlank"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Control/HBoxContainer/NPlank" to="." method="_on_n_plank_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/EPlank" to="." method="_on_e_plank_pressed"]

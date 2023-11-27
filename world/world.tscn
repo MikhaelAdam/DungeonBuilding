@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://hdt3oeve7n1f"]
+
+[ext_resource type="Texture2D" uid="uid://cpi52uuafjpq2" path="res://spritesheet/bungeon.png" id="1_vbsq8"]
+[ext_resource type="PackedScene" uid="uid://b33uhc186bybt" path="res://object/player/player.tscn" id="3_237go"]
+[ext_resource type="PackedScene" uid="uid://b3pirvjou01sy" path="res://plank/Plank.tscn" id="3_thjyw"]
+
+[node name="World" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(44, -2)
+motion_mirroring = Vector2(1130, 2288)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(573, -486)
+scale = Vector2(8.9375, 8.9375)
+texture = ExtResource("1_vbsq8")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_237go")]
+position = Vector2(553.775, 197.759)
+
+[node name="Plank" parent="." instance=ExtResource("3_thjyw")]
+position = Vector2(557, 255)

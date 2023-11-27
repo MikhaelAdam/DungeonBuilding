@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=3 uid="uid://ldlim2ray2y0"]
+
+[ext_resource type="Script" path="res://world/level.gd" id="1_5ku7q"]
+[ext_resource type="Script" path="res://object/resource/placeables.gd" id="2_4dy1x"]
+[ext_resource type="Texture2D" uid="uid://b3pae3g4qct4c" path="res://spritesheet/Brick.png" id="3_b7p6n"]
+[ext_resource type="Texture2D" uid="uid://cldq4ypoidq0i" path="res://spritesheet/plank.png" id="4_ggtj2"]
+[ext_resource type="Texture2D" uid="uid://dgqy07we7qsmd" path="res://spritesheet/enemyplank.png" id="5_hs8cf"]
+
+[sub_resource type="Resource" id="Resource_jh70e"]
+script = ExtResource("2_4dy1x")
+normal_plank = 1
+stairs = 0
+stairs_maxwidth = 0
+stairs_maxheight = 0
+enemy_plank = 0
+normal_plank_max = 10
+enemy_plank_max = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmwf"]
+texture = ExtResource("3_b7p6n")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(21.5, -32, 22, -20, 26, -20, 25.5, 32, 32, 32, 32, -32)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -32, -23.125, -18.875, -25.375, -19.125, -25.5, 32, -32, 32, -32, -32)
+
+[sub_resource type="TileSet" id="TileSet_d768j"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0gmwf")
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_5ku7q")
+level_placeable = SubResource("Resource_jh70e")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_d768j")
+format = 2
+layer_0/tile_data = PackedInt32Array(589825, 0, 0, 589826, 0, 0, 524289, 65536, 0, 524290, 65536, 0, 524291, 65536, 1, 524288, 0, 1, 589839, 0, 0, 589841, 0, 0, 589840, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 458767, 65536, 0, 458768, 65536, 0, 458769, 65536, 0, 458766, 0, 1, 655361, 0, 0, 655362, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -90.0
+offset_right = 138.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NPlank" type="Button" parent="Control/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_ggtj2")
+
+[node name="PLabel" type="Label" parent="Control/HBoxContainer/NPlank"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0"
+horizontal_alignment = 1
+
+[node name="EPlank" type="Button" parent="Control/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_hs8cf")
+
+[node name="ELabel" type="Label" parent="Control/HBoxContainer/EPlank"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Level "
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(587, 379)
+
+[connection signal="pressed" from="Control/HBoxContainer/NPlank" to="." method="_on_n_plank_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/EPlank" to="." method="_on_e_plank_pressed"]
