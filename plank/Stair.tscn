@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://c71efp0dy8vvg"]
+
+[ext_resource type="Script" path="res://plank/Stair.gd" id="1_35lag"]
+[ext_resource type="Texture2D" uid="uid://bu70kn7v3a6tm" path="res://spritesheet/stair.png" id="2_pp16r"]
+[ext_resource type="AudioStream" uid="uid://bbh5dtpe65d15" path="res://sound/click.ogg" id="3_6defy"]
+
+[node name="Stair" type="Node2D" groups=["stair"]]
+script = ExtResource("1_35lag")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(-17, -24)
+scale = Vector2(10.5, 8.87322)
+texture = ExtResource("2_pp16r")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(35, -8)
+polygon = PackedVector2Array(-136, 55, 32, 56, 31, -85, 14, -85, -136, 42)
+
+[node name="PlankControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -36.5
+offset_right = 78.0
+offset_bottom = 36.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlankControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 8.0
+offset_right = 110.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="xspin" type="SpinBox" parent="PlankControl/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="Button" type="Button" parent="PlankControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -4.0
+offset_right = 7.5
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Clicked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6defy")
+
+[connection signal="button_down" from="PlankControl/Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="PlankControl/Button" to="." method="_on_button_button_up"]

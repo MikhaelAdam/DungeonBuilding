@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs8m52cryje5c"]
+
+[ext_resource type="Script" path="res://world/main_menu.gd" id="1_fhliu"]
+[ext_resource type="Texture2D" uid="uid://cnpqxm8wbfjbv" path="res://spritesheet/Background.png" id="1_rsbib"]
+[ext_resource type="Theme" uid="uid://dj6gcnkowllwd" path="res://themenfonts/standard.tres" id="2_ex2xy"]
+[ext_resource type="AudioStream" uid="uid://bbh5dtpe65d15" path="res://sound/click.ogg" id="4_c0crc"]
+[ext_resource type="AudioStream" uid="uid://btbfm2e2wj5fm" path="res://sound/levelplay.ogg" id="4_f7ec4"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_fhliu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(683, 383)
+texture = ExtResource("1_rsbib")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1366.0
+offset_bottom = 768.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -384.0
+offset_right = 250.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ex2xy")
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 153
+text = "Building
+Dungeon"
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 76
+text = "Play"
+
+[node name="Quit" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 76
+text = "Quit Game
+"
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 76
+text = "Guide
+"
+
+[node name="PClicked" type="AudioStreamPlayer2D" parent="Control/VBoxContainer"]
+position = Vector2(0, 421)
+stream = ExtResource("4_c0crc")
+
+[node name="MainMenuOst" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_f7ec4")
+
+[connection signal="pressed" from="Control/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

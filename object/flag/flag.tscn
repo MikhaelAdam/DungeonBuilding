@@ -1,6 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnrl6nu51xc4"]
+[gd_scene load_steps=14 format=3 uid="uid://bnrl6nu51xc4"]
 
 [ext_resource type="Texture2D" uid="uid://txwkodcwand3" path="res://spritesheet/flag.png" id="1_60ib6"]
+[ext_resource type="Script" path="res://object/flag/flag.gd" id="1_r3b3t"]
+[ext_resource type="AudioStream" uid="uid://dlrrgudb6m5kw" path="res://sound/pickupCoin.wav" id="3_atume"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xt88x"]
+size = Vector2(33, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yl5j7"]
 atlas = ExtResource("1_60ib6")
@@ -66,15 +71,18 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xt88x"]
-size = Vector2(33, 52)
-
-[node name="Flag" type="StaticBody2D"]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_2qkaj")
-frame_progress = 0.375321
+[node name="Flag" type="Area2D"]
+script = ExtResource("1_r3b3t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 6)
 shape = SubResource("RectangleShape2D_xt88x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2qkaj")
+frame_progress = 0.156644
+
+[node name="NextLevel" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_atume")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

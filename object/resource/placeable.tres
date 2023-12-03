@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="placeable" load_steps=2 format=3 uid="uid://d3yb1m7eyqufl"]
+
+[ext_resource type="Script" path="res://object/resource/placeables.gd" id="1_kdirb"]
+
+[resource]
+script = ExtResource("1_kdirb")
+normal_plank = 1
+stairs = 1
+stairs_max = 3
+enemy_plank = 0
+normal_plank_max = 2
+enemy_plank_max = 0

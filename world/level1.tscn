@@ -1,19 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://ldlim2ray2y0"]
+[gd_scene load_steps=13 format=3 uid="uid://ldlim2ray2y0"]
 
 [ext_resource type="Script" path="res://world/level.gd" id="1_5ku7q"]
 [ext_resource type="Script" path="res://object/resource/placeables.gd" id="2_4dy1x"]
+[ext_resource type="Texture2D" uid="uid://cnpqxm8wbfjbv" path="res://spritesheet/Background.png" id="3_aqaue"]
 [ext_resource type="Texture2D" uid="uid://b3pae3g4qct4c" path="res://spritesheet/Brick.png" id="3_b7p6n"]
-[ext_resource type="Texture2D" uid="uid://cldq4ypoidq0i" path="res://spritesheet/plank.png" id="4_ggtj2"]
-[ext_resource type="Texture2D" uid="uid://dgqy07we7qsmd" path="res://spritesheet/enemyplank.png" id="5_hs8cf"]
+[ext_resource type="PackedScene" uid="uid://bnrl6nu51xc4" path="res://object/flag/flag.tscn" id="6_h7oda"]
+[ext_resource type="PackedScene" uid="uid://b33uhc186bybt" path="res://object/player/player.tscn" id="7_6rh1b"]
+[ext_resource type="AudioStream" uid="uid://bbh5dtpe65d15" path="res://sound/click.ogg" id="7_bs7up"]
+[ext_resource type="Theme" uid="uid://dj6gcnkowllwd" path="res://themenfonts/standard.tres" id="7_ivcl1"]
+[ext_resource type="PackedScene" uid="uid://b3pirvjou01sy" path="res://plank/Plank.tscn" id="8_s47mu"]
 
-[sub_resource type="Resource" id="Resource_jh70e"]
+[sub_resource type="Resource" id="Resource_lfx4w"]
 script = ExtResource("2_4dy1x")
 normal_plank = 1
 stairs = 0
-stairs_maxwidth = 0
-stairs_maxheight = 0
-enemy_plank = 0
-normal_plank_max = 10
+stairs_max = 0
+enemy_plank = 1
+normal_plank_max = 6
 enemy_plank_max = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmwf"]
@@ -43,20 +46,49 @@ sources/0 = SubResource("TileSetAtlasSource_0gmwf")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_5ku7q")
-level_placeable = SubResource("Resource_jh70e")
+level_placeable = SubResource("Resource_lfx4w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(683, 388)
+texture = ExtResource("3_aqaue")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_d768j")
 format = 2
-layer_0/tile_data = PackedInt32Array(589825, 0, 0, 589826, 0, 0, 524289, 65536, 0, 524290, 65536, 0, 524291, 65536, 1, 524288, 0, 1, 589839, 0, 0, 589841, 0, 0, 589840, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 458767, 65536, 0, 458768, 65536, 0, 458769, 65536, 0, 458766, 0, 1, 655361, 0, 0, 655362, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0)
+layer_0/tile_data = PackedInt32Array(589825, 0, 0, 589826, 0, 0, 524289, 65536, 0, 524290, 65536, 0, 524291, 65536, 1, 524288, 0, 1, 589839, 0, 0, 589841, 0, 0, 589840, 0, 0, 655361, 0, 0, 655362, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 720897, 0, 0, 720898, 0, 0, 720911, 0, 0, 720912, 0, 0, 720913, 0, 0, 524302, 0, 1, 524306, 65536, 1, 524303, 65536, 0, 524304, 65536, 0, 524305, 65536, 0)
 
-[node name="Control" type="Control" parent="."]
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(470, 675)
+
+[node name="Flag" parent="." instance=ExtResource("6_h7oda")]
+position = Vector2(1064, 479)
+
+[node name="Player" parent="." instance=ExtResource("7_6rh1b")]
+position = Vector2(132, 496)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Player"]
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(127, 501)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(682, 386)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+
+[node name="Control" type="Control" parent="Camera2D"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -685.0
+offset_top = -385.0
+offset_right = 467.0
+offset_bottom = 263.0
+scale = Vector2(1.18776, 1.18632)
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme = ExtResource("7_ivcl1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -70,54 +102,30 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="NPlank" type="Button" parent="Control/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("4_ggtj2")
-
-[node name="PLabel" type="Label" parent="Control/HBoxContainer/NPlank"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = 2.0
-offset_right = 20.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "0"
-horizontal_alignment = 1
-
-[node name="EPlank" type="Button" parent="Control/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("5_hs8cf")
-
-[node name="ELabel" type="Label" parent="Control/HBoxContainer/EPlank"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = 2.0
-offset_right = 20.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "0"
-horizontal_alignment = 1
-
-[node name="Label" type="Label" parent="Control"]
+[node name="LevelLabel" type="Label" parent="Camera2D/Control"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "Level "
+text = "Level 1"
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(587, 379)
+[node name="StartButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.2772
+offset_top = 0.842943
+offset_right = 24.7228
+offset_bottom = 23.8429
+grow_horizontal = 2
+text = "Start"
 
-[connection signal="pressed" from="Control/HBoxContainer/NPlank" to="." method="_on_n_plank_pressed"]
-[connection signal="pressed" from="Control/HBoxContainer/EPlank" to="." method="_on_e_plank_pressed"]
+[node name="Clicked" type="AudioStreamPlayer2D" parent="Camera2D/Control/StartButton"]
+stream = ExtResource("7_bs7up")
+
+[node name="Plank" parent="." instance=ExtResource("8_s47mu")]
+position = Vector2(471, 677)
+
+[connection signal="dead_man" from="Player" to="." method="_on_player_dead_man"]
+[connection signal="screen_exited" from="Player/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="pressed" from="Camera2D/Control/StartButton" to="." method="_on_start_button_pressed"]

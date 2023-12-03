@@ -1,0 +1,146 @@
+[gd_scene load_steps=13 format=3 uid="uid://d224nnejxniuw"]
+
+[ext_resource type="Script" path="res://world/level6.gd" id="1_t3kf2"]
+[ext_resource type="Texture2D" uid="uid://cnpqxm8wbfjbv" path="res://spritesheet/Background.png" id="2_68mle"]
+[ext_resource type="Texture2D" uid="uid://b3pae3g4qct4c" path="res://spritesheet/Brick.png" id="3_ysi53"]
+[ext_resource type="PackedScene" uid="uid://b33uhc186bybt" path="res://object/player/player.tscn" id="4_57aup"]
+[ext_resource type="Theme" uid="uid://dj6gcnkowllwd" path="res://themenfonts/standard.tres" id="5_7ryd1"]
+[ext_resource type="AudioStream" uid="uid://bbh5dtpe65d15" path="res://sound/click.ogg" id="5_hh4j2"]
+[ext_resource type="PackedScene" uid="uid://b3pirvjou01sy" path="res://plank/Plank.tscn" id="6_4wkq5"]
+[ext_resource type="PackedScene" uid="uid://bnrl6nu51xc4" path="res://object/flag/flag.tscn" id="7_pevdq"]
+[ext_resource type="PackedScene" uid="uid://b3beaovodymuh" path="res://traps/trap_arrow.tscn" id="8_ttrie"]
+[ext_resource type="PackedScene" uid="uid://c71efp0dy8vvg" path="res://plank/Stair.tscn" id="9_5eehe"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmwf"]
+texture = ExtResource("3_ysi53")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(21.5, -32, 22, -20, 26, -20, 25.5, 32, 32, 32, 32, -32)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -32, -23.125, -18.875, -25.375, -19.125, -25.5, 32, -32, 32, -32, -32)
+
+[sub_resource type="TileSet" id="TileSet_d768j"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0gmwf")
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_t3kf2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(686, 388)
+texture = ExtResource("2_68mle")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_d768j")
+format = 2
+layer_0/tile_data = PackedInt32Array(720896, 65536, 0, 720897, 65536, 0, 720898, 0, 0, 720905, 65536, 0, 720906, 65536, 0, 720907, 65536, 0, 720912, 65536, 0, 720913, 65536, 0, 720914, 65536, 0, 720915, 65536, 0, 720916, 65536, 0, 720917, 65536, 0, 393225, 65536, 0, 393226, 65536, 0, 393227, 65536, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 524298, 0, 0, 524297, 0, 0, 393224, 65536, 0, 393223, 65536, 0, 393222, 65536, 0, 393221, 65536, 0, 393220, 65536, 0, 393219, 65536, 0, 393218, 65536, 0, 393217, 65536, 0, 393216, 65536, 0, 458760, 0, 0, 458759, 0, 0, 458758, 0, 0, 458757, 0, 0, 458756, 0, 0, 458755, 0, 0, 458754, 0, 0, 458753, 0, 0, 458752, 0, 0, 524296, 0, 0, 524295, 0, 0, 524294, 0, 0, 524293, 0, 0, 524292, 0, 0, 524291, 0, 0, 524290, 0, 0, 524289, 0, 0, 524288, 0, 0, 393228, 65536, 0, 393229, 65536, 0, 458764, 0, 0, 458765, 0, 0, 720908, 65536, 0, 720909, 65536, 0, 720910, 65536, 0, 720911, 65536, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 655371, 65536, 0, 131080, 65536, 0, 131081, 65536, 0, 131082, 65536, 0, 655362, 65536, 0)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(470, 675)
+
+[node name="Player" parent="." instance=ExtResource("4_57aup")]
+position = Vector2(52.9999, 687)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Player"]
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(53, 689)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(682, 386)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+
+[node name="Control" type="Control" parent="Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -685.0
+offset_top = -385.0
+offset_right = 467.0
+offset_bottom = 263.0
+scale = Vector2(1.18776, 1.18632)
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme = ExtResource("5_7ryd1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -90.0
+offset_right = 138.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="LevelLabel" type="Label" parent="Camera2D/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Level 8"
+
+[node name="StartButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.7515
+offset_top = 0.842943
+offset_right = 30.2485
+offset_bottom = 24.8429
+grow_horizontal = 2
+text = "Start"
+
+[node name="Clicked" type="AudioStreamPlayer2D" parent="Camera2D/Control/StartButton"]
+stream = ExtResource("5_hh4j2")
+
+[node name="Plank" parent="." instance=ExtResource("6_4wkq5")]
+position = Vector2(399, 711)
+
+[node name="Plank2" parent="." instance=ExtResource("6_4wkq5")]
+position = Vector2(916, 398)
+
+[node name="Flag" parent="." instance=ExtResource("7_pevdq")]
+position = Vector2(611, 95)
+
+[node name="ArrowTrap" parent="." instance=ExtResource("8_ttrie")]
+position = Vector2(556, 26)
+rotation = 2.34336
+
+[node name="ArrowTrap3" parent="." instance=ExtResource("8_ttrie")]
+position = Vector2(699, 686)
+rotation = 3.14159
+
+[node name="ArrowTrap5" parent="." instance=ExtResource("8_ttrie")]
+position = Vector2(8, 373)
+
+[node name="ArrowTrap4" parent="." instance=ExtResource("8_ttrie")]
+position = Vector2(699, 686)
+rotation = 3.14159
+
+[node name="Stair" parent="." instance=ExtResource("9_5eehe")]
+position = Vector2(906, 701)
+
+[node name="Stair2" parent="." instance=ExtResource("9_5eehe")]
+position = Vector2(223, 284)
+
+[connection signal="dead_man" from="Player" to="." method="_on_player_dead_man"]
+[connection signal="screen_exited" from="Player/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="pressed" from="Camera2D/Control/StartButton" to="." method="_on_start_button_pressed"]

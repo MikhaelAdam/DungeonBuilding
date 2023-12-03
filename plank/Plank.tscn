@@ -1,13 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3pirvjou01sy"]
+[gd_scene load_steps=4 format=3 uid="uid://b3pirvjou01sy"]
 
 [ext_resource type="Script" path="res://plank/Plank.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://cldq4ypoidq0i" path="res://spritesheet/plank.png" id="2_scvup"]
-[ext_resource type="Texture2D" uid="uid://dgljnolssbsqr" path="res://spritesheet/Restart.png" id="4_46q8a"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(272, 26)
 
-[node name="Plank" type="Node2D"]
+[node name="Plank" type="Node2D" groups=["plank"]]
 script = ExtResource("2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -18,9 +17,6 @@ texture = ExtResource("2_scvup")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("1")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.4
 
 [node name="PlankControl" type="Control" parent="."]
 layout_mode = 3
@@ -41,15 +37,6 @@ layout_mode = 2
 min_value = 1.0
 value = 1.0
 
-[node name="yspin" type="SpinBox" parent="PlankControl/HBoxContainer"]
-layout_mode = 2
-min_value = -180.0
-max_value = 180.0
-
-[node name="Button" type="Button" parent="PlankControl/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("4_46q8a")
-
 [node name="Button" type="Button" parent="PlankControl"]
 layout_mode = 0
 offset_left = -8.0
@@ -57,7 +44,5 @@ offset_top = -4.0
 offset_right = 7.0
 offset_bottom = 4.0
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="button_down" from="PlankControl/Button" to="." method="_on_Button_button_down"]
 [connection signal="button_up" from="PlankControl/Button" to="." method="_on_Button_button_up"]
-[connection signal="pressed" from="PlankControl/Button" to="." method="_on_Button_pressed"]

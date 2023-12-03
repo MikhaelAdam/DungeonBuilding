@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ugil2ak3isij"
+path="res://.godot/imported/hitHurt (1).ogg-9b5745c588f1eb1d4b0803bea19787bf.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/hitHurt (1).ogg"
+dest_files=["res://.godot/imported/hitHurt (1).ogg-9b5745c588f1eb1d4b0803bea19787bf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

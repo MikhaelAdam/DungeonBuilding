@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1gmvqeklthui"]
+
+[ext_resource type="Script" path="res://traps/arrow/arrow.gd" id="1_fhy0x"]
+[ext_resource type="Texture2D" uid="uid://calhkvcofdhvj" path="res://spritesheet/Sprite-0004.png" id="2_p8guc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h8pw2"]
+radius = 8.88578
+height = 36.1911
+
+[node name="Arrow" type="Area2D" groups=["arrow"]]
+script = ExtResource("1_fhy0x")
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.38462, 1.38462)
+texture = ExtResource("2_p8guc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.12539, 0.552623)
+shape = SubResource("CapsuleShape2D_h8pw2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,11 +1,14 @@
 extends CharacterBody2D
-
+signal dead_man
 const SPEED = 200
 const GRAVITY = 600
 const JUMP_FORCE = -400
 var isAttacking:bool = false
 @onready var anim = $AnimatedSprite2D
-@export var hitbox:HitboxComponent 
+
+func _ready():
+	set_physics_process(false)
+	hide()
 
 func _physics_process(delta):
 	# Input handling
@@ -15,32 +18,38 @@ func _physics_process(delta):
 		isAttacking = true
 	# Move the character
 	velocity.x = input_direction.x * SPEED
-	if isAttacking == false:
-		if velocity.x !=0:
-			anim.play("walk")
-			$AnimatedSprite2D.flip_h = velocity.x < 0
-			if Input.is_action_just_pressed("ui_accept") && is_on_floor():
-				anim.play("jump")
-				velocity.y = JUMP_FORCE
-		else:
-			
-			anim.play("idle")
+	
+	if velocity.x !=0:
+		anim.play("walk")
+		$AnimatedSprite2D.flip_h = velocity.x < 0
+		$CPUParticles2D.emitting = true
+		
 	else:
-		velocity.x *= 0.15
-		anim.play("attack")
+		anim.play("idle")
+		$CPUParticles2D.emitting = false
+
 
 	# Apply gravity
-	velocity.y += GRAVITY * delta * 2
-	# Move the character with gravity
+	velocity.y += GRAVITY * delta * 1.7
+
 	move_and_slide()
-
+	if Input.is_action_just_pressed("ui_accept") && is_on_floor():
+		anim.play("jump")
+		$JumpSound.play()
+		velocity.y = JUMP_FORCE
 	# Jumping
-
-
-
 
 
 
 func _on_animated_sprite_2d_animation_finished():
 	if anim.animation == "attack":
 		isAttacking = false
+
+
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("arrow"):
+		$Death.play()
+		await $Death.finished
+		emit_signal("dead_man")
+
+

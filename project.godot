@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="gojam"
-run/main_scene="res://world/world.tscn"
+run/main_scene="res://world/main_menu.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=1366
+window/size/viewport_height=768
+window/stretch/mode="viewport"
 
 [input]
 

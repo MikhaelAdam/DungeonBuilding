@@ -1,0 +1,146 @@
+[gd_scene load_steps=13 format=3 uid="uid://digbfox3viuhg"]
+
+[ext_resource type="Script" path="res://world/level4.gd" id="1_er418"]
+[ext_resource type="Texture2D" uid="uid://cnpqxm8wbfjbv" path="res://spritesheet/Background.png" id="2_x8mjg"]
+[ext_resource type="Texture2D" uid="uid://b3pae3g4qct4c" path="res://spritesheet/Brick.png" id="3_ep8wv"]
+[ext_resource type="PackedScene" uid="uid://bnrl6nu51xc4" path="res://object/flag/flag.tscn" id="4_88v6a"]
+[ext_resource type="PackedScene" uid="uid://b33uhc186bybt" path="res://object/player/player.tscn" id="5_d12fv"]
+[ext_resource type="AudioStream" uid="uid://bbh5dtpe65d15" path="res://sound/click.ogg" id="6_gftqf"]
+[ext_resource type="Theme" uid="uid://dj6gcnkowllwd" path="res://themenfonts/standard.tres" id="6_k7s46"]
+[ext_resource type="PackedScene" uid="uid://b3pirvjou01sy" path="res://plank/Plank.tscn" id="7_huohm"]
+[ext_resource type="PackedScene" uid="uid://b3beaovodymuh" path="res://traps/trap_arrow.tscn" id="8_4teqv"]
+[ext_resource type="PackedScene" uid="uid://c71efp0dy8vvg" path="res://plank/Stair.tscn" id="9_1sptk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gmwf"]
+texture = ExtResource("3_ep8wv")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(21.5, -32, 22, -20, 26, -20, 25.5, 32, 32, 32, 32, -32)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -32, -23.125, -18.875, -25.375, -19.125, -25.5, 32, -32, 32, -32, -32)
+
+[sub_resource type="TileSet" id="TileSet_d768j"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0gmwf")
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_er418")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(686, 388)
+texture = ExtResource("2_x8mjg")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_d768j")
+format = 2
+layer_0/tile_data = PackedInt32Array(720896, 65536, 0, 720897, 65536, 0, 720898, 65536, 1, 131091, 65536, 0, 131092, 65536, 0, 131093, 65536, 0)
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_d768j")
+format = 2
+layer_0/tile_data = PackedInt32Array(720896, 65536, 0, 720897, 65536, 0, 720898, 65536, 1, 131091, 65536, 0, 131092, 65536, 0, 131093, 65536, 0)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(470, 675)
+
+[node name="Flag" parent="." instance=ExtResource("4_88v6a")]
+position = Vector2(1292, 95)
+
+[node name="Player" parent="." instance=ExtResource("5_d12fv")]
+position = Vector2(52.9999, 687)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Player"]
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(53, 689)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(682, 386)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+
+[node name="Control" type="Control" parent="Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -685.0
+offset_top = -385.0
+offset_right = 467.0
+offset_bottom = 263.0
+scale = Vector2(1.18776, 1.18632)
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme = ExtResource("6_k7s46")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -90.0
+offset_right = 138.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="LevelLabel" type="Label" parent="Camera2D/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Level 7"
+
+[node name="StartButton" type="Button" parent="Camera2D/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.5934
+offset_top = 1.68589
+offset_right = 28.4066
+offset_bottom = 25.6859
+grow_horizontal = 2
+text = "Start"
+
+[node name="Clicked" type="AudioStreamPlayer2D" parent="Camera2D/Control/StartButton"]
+stream = ExtResource("6_gftqf")
+
+[node name="Plank" parent="." instance=ExtResource("7_huohm")]
+position = Vector2(471, 677)
+
+[node name="ArrowTrap" parent="." instance=ExtResource("8_4teqv")]
+position = Vector2(430, 34)
+rotation = 1.5708
+
+[node name="ArrowTrap3" parent="." instance=ExtResource("8_4teqv")]
+position = Vector2(859, 33)
+rotation = 1.84213
+
+[node name="ArrowTrap4" parent="." instance=ExtResource("8_4teqv")]
+position = Vector2(1113, 41)
+rotation = 1.77888
+
+[node name="ArrowTrap2" parent="." instance=ExtResource("8_4teqv")]
+position = Vector2(130, 716)
+rotation = -0.812342
+
+[node name="Stair" parent="." instance=ExtResource("9_1sptk")]
+position = Vector2(471, 677)
+
+[connection signal="dead_man" from="Player" to="." method="_on_player_dead_man"]
+[connection signal="screen_exited" from="Player/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="pressed" from="Camera2D/Control/StartButton" to="." method="_on_start_button_pressed"]

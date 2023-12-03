@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://b33uhc186bybt"]
+[gd_scene load_steps=29 format=3 uid="uid://b33uhc186bybt"]
 
 [ext_resource type="Texture2D" uid="uid://ni6ugvvw3sel" path="res://spritesheet/knight.png" id="1_13qaa"]
 [ext_resource type="Script" path="res://object/player/player.gd" id="1_51bex"]
-[ext_resource type="PackedScene" uid="uid://cyjv1ta5os0k6" path="res://object/Hitbox/hitbox_component.tscn" id="3_127m1"]
+[ext_resource type="AudioStream" uid="uid://crvnqbjy6g52m" path="res://sound/jump.wav" id="3_0vnem"]
+[ext_resource type="AudioStream" uid="uid://bd5ufqpxcbe5w" path="res://sound/explosion.wav" id="4_j2b1i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3emj"]
 atlas = ExtResource("1_13qaa")
@@ -175,13 +176,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_17opo"]
 size = Vector2(31, 46)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r7h4"]
-size = Vector2(6.55059, 24.1458)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24fyn"]
+size = Vector2(31.0447, 50.0164)
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+[sub_resource type="Curve" id="Curve_xvxix"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.0117188, -360), 0.0, 0.0, 0, 0, Vector2(0.527344, 3.78946), 3557.05, 3557.05, 0, 0, Vector2(0.976563, 360), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(0.57981, 0.57981)
 script = ExtResource("1_51bex")
-hitbox = NodePath("HitboxComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_hhbyr")
@@ -191,12 +197,33 @@ animation = &"jump"
 position = Vector2(0.5, 3)
 shape = SubResource("RectangleShape2D_17opo")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="HitboxComponent" parent="." instance=ExtResource("3_127m1")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["player"]]
+position = Vector2(0, 0.862351)
+shape = SubResource("RectangleShape2D_24fyn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(22.5952, -5.17411)
-shape = SubResource("RectangleShape2D_0r7h4")
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 24.1458)
+amount = 60
+speed_scale = 7.0
+randomness = 1.0
+fixed_fps = 30
+emission_shape = 1
+emission_sphere_radius = 6.31
+direction = Vector2(-2.72, 5.53)
+gravity = Vector2(-9.505, -3.21)
+angular_velocity_min = 21.18
+angular_velocity_max = 21.18
+angle_curve = SubResource("Curve_xvxix")
+scale_amount_min = 2.5
+scale_amount_max = 2.5
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0vnem")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_j2b1i")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
